@@ -12,6 +12,7 @@ import { randomString } from '../../../shared/utils/random-string';
 import { UserGateway } from '../gateway/user.gateway';
 import { Socket } from 'socket.io';
 import { SocketConnectionService } from './socket-connection.service';
+import { STATUS } from 'src/shared/constants/status';
 
 @Injectable()
 export class UserService {
@@ -32,10 +33,10 @@ export class UserService {
     private socketConnectionService: SocketConnectionService,
   ) {}
 
-  getUserByName(name: string) {
+  getUserByName(name: string, status: number = STATUS.ACTIVE) {
     const username = { $regex: new RegExp(`^${name}$`, 'i') };
 
-    return this.userModel.findOne({ username });
+    return this.userModel.findOne({ username, status });
   }
 
   async validateUserByName(username: string) {
@@ -48,10 +49,10 @@ export class UserService {
     return user;
   }
 
-  getUserByEmail(mail: string) {
+  getUserByEmail(mail: string, status: number = STATUS.ACTIVE) {
     const email = { $regex: new RegExp(`^${mail}$`, 'i') };
 
-    return this.userModel.findOne({ email });
+    return this.userModel.findOne({ email, status });
   }
 
   async validateUserByEmail(email: string) {
@@ -76,8 +77,8 @@ export class UserService {
     return this.userModel.findById(id);
   }
 
-  async validateUserById(id: string) {
-    const user = await this.getUserById(id);
+  async validateUserById(id: string, status: number = STATUS.ACTIVE) {
+    const user = await this.getUserBy({ _id: id, status });
 
     if (!user) {
       throw new NotFoundException('User not found');
