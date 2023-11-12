@@ -149,4 +149,9 @@ export class UserService {
 
     return user.save();
   }
+
+  async getListUser() {
+    const userObject = await this.userModel.find();
+    return userObject;
+  }
 }

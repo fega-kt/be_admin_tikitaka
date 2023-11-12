@@ -27,10 +27,10 @@ import { TransformInterceptor } from './transform.interceptor';
       provide: APP_FILTER,
       useClass: ExceptionsFilter,
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: TransformInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: TransformInterceptor,
+    // },
   ],
   controllers: [AppController],
 })
