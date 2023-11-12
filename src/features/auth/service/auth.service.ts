@@ -11,6 +11,7 @@ import { environments } from '../../../environments/environments';
 import { User } from '../../user/schema/user.schema';
 import { UserService } from '../../user/service/user.service';
 import { Token } from '../guard/jwt-auth.guard';
+import { STATUS } from 'src/shared/constants/status';
 
 export interface TokenResponse {
   access_token: string;
@@ -34,7 +35,6 @@ export class AuthService {
 
   async validate(username: string, password: string) {
     const user = await this.userService.getUser(username);
-
     if (!user) {
       throw new UnauthorizedException('User does not exist');
     }
@@ -50,6 +50,7 @@ export class AuthService {
     const payload: Token = {
       sub: user.id,
       username: user.username,
+      status: STATUS.ACTIVE,
     };
 
     let refresh_token: string;
