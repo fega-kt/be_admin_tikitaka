@@ -17,6 +17,7 @@ import { AUTH_NOT_REQUIRED } from '../decorators/auth-not-required.decorator';
 export interface Token {
   sub: string;
   username: string;
+  status: number;
 }
 
 @Injectable()
@@ -54,7 +55,6 @@ export class JwtAuthGuard implements CanActivate {
 
   private async handleRequest(ctx: ExecutionContext, client: Client) {
     const token = this.getToken(ctx, client);
-
     const decoded = this.jwtService.decode(token) as Token;
 
     if (!decoded) {
@@ -63,7 +63,6 @@ export class JwtAuthGuard implements CanActivate {
 
     try {
       const user = await this.validate(decoded);
-
       await this.jwtService.verifyAsync<Token>(
         token,
         this.authService.getAccessTokenOptions(user),
