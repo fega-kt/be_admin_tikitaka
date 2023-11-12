@@ -3,6 +3,8 @@ import { Prop, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { createSchemaForClassWithMethods } from '../../../shared/mongoose/create-schema';
 import { randomString } from '../../../shared/utils/random-string';
+import { STATUS } from 'src/shared/constants/status';
+import { IsEnum } from 'class-validator';
 
 @Schema()
 export class User extends Document {
@@ -18,6 +20,9 @@ export class User extends Document {
   @Prop({ default: false })
   online: boolean;
 
+  @Prop({ default: false })
+  admin: boolean;
+
   @Prop()
   password?: string;
 
@@ -30,6 +35,9 @@ export class User extends Document {
   @Prop()
   appleId?: string;
 
+  @Prop({ default: STATUS.ACTIVE })
+  status: number;
+  @IsEnum(STATUS)
   get isSocial(): boolean {
     return !!(this.facebookId || this.googleId || this.appleId);
   }
