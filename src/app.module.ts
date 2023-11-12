@@ -7,7 +7,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { ExceptionsFilter } from './core/filter/exceptions.filter';
 import { environments } from './environments/environments';
-console.log(environments.mongoUri, 'environments.mongoUri');
 @Module({
   imports: [
     FeaturesModule,
