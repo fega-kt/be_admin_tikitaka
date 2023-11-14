@@ -13,16 +13,18 @@ import { UserGateway } from '../gateway/user.gateway';
 import { Socket } from 'socket.io';
 import { SocketConnectionService } from './socket-connection.service';
 import { STATUS } from 'src/shared/constants/status';
+import { handleConvertDataObject } from 'src/utils';
 
 @Injectable()
 export class UserService {
   private blockedFields: (keyof User)[] = [
     'password',
     'sessionToken',
-    'email',
+    // 'email',
     'facebookId',
     'googleId',
     'appleId',
+    '_id',
   ];
 
   unpopulatedFields = '-' + this.blockedFields.join(' -');
@@ -150,8 +152,21 @@ export class UserService {
     return user.save();
   }
 
-  async getListUser() {
-    const userObject = await this.userModel.find();
-    return userObject;
+  async getListUser(
+    allowedFields: (keyof User)[] = [],
+    status: STATUS = STATUS.ACTIVE,
+  ) {
+    const userObject = await this.userModel.find({ status });
+    console.log(11111, userObject, status);
+    return userObject.map(it =>
+      handleConvertDataObject(it, allowedFields, this.blockedFields),
+    );
+  }
+
+  async deleteUsers(ids: string[]) {
+    return await this.userModel.updateMany(
+      { _id: ids },
+      { status: STATUS.INACTIVE },
+    );
   }
 }

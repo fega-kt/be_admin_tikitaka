@@ -1,4 +1,10 @@
-import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  UseInterceptors,
+} from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { User } from '../schema/user.schema';
 import { TransformInterceptor } from 'src/transform.interceptor';
@@ -10,7 +16,7 @@ export class UserController {
   @Get()
   @UseInterceptors(TransformInterceptor) // format data response
   async getListUser(): Promise<User[]> {
-    return await this.userService.getListUser();
+    return await this.userService.getListUser([]);
   }
 
   @Get(':username')
@@ -18,5 +24,9 @@ export class UserController {
     return this.userService.filterUser(
       await this.userService.validateUserByName(username),
     );
+  }
+  @Delete(':id')
+  async deleteUser(@Param('id') id: string) {
+    await this.userService.deleteUsers([id]);
   }
 }
