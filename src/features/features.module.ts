@@ -4,6 +4,7 @@ import { MessagesModule } from './messages/messages.module';
 import { NotificationModule } from './notification/notification.module';
 import { RoomModule } from './room/room.module';
 import { UserModule } from './user/user.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UserModule } from './user/user.module';
     RoomModule,
     MessagesModule,
     NotificationModule,
+    UploadModule,
   ],
   controllers: [],
   exports: [
@@ -20,6 +22,7 @@ import { UserModule } from './user/user.module';
     RoomModule,
     MessagesModule,
     NotificationModule,
+    UploadModule,
   ],
 })
 export class FeaturesModule {}
