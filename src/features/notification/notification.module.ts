@@ -6,11 +6,10 @@ import { generateVAPIDKeys, setVapidDetails } from 'web-push';
 import { notificationConfig } from './config/notification.config';
 import { AuthModule } from '../auth/auth.module';
 import { environments } from '../../environments/environments';
-import { FallbackController } from './controller/notiNotfound.controller';
 
 @Module({
   imports: [forwardRef(() => AuthModule)],
-  controllers: [NotificationController, FallbackController],
+  controllers: [NotificationController],
   providers: [MobileNotificationService, WebNotificationService],
   exports: [MobileNotificationService, WebNotificationService],
 })
