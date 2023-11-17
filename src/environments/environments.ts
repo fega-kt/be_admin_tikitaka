@@ -6,6 +6,7 @@ const env = process.env;
 
 export const environments = {
   port: Number(env.PORT || 3000),
+  isDev: Boolean(env.DEV),
   mongoUri: env.MONGO_URI,
   proxyEnabled: env.PROXY_ENABLED === 'true',
   frontEndUrl: env.FRONTEND_URL,
