@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -9,12 +10,17 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { multerConfig } from '../validation/multer.config';
 import * as fs from 'fs';
 
-@Controller('uploads')
+@Controller('upload')
 export class UploadController {
   constructor(private uploadService: UploadService) {}
 
+  @Get()
+  async getFile() {
+    const result = await this.uploadService.handleGetFiles();
+    return { data: result };
+  }
+
   @Post()
-  @Post('upload')
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
     const result = await this.uploadService.handleUpload(file);

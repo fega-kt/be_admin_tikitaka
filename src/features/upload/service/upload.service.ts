@@ -1,3 +1,4 @@
+import { UploadModule } from './../upload.module';
 import {
   forwardRef,
   Inject,
@@ -6,11 +7,13 @@ import {
 } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { cloudinaryConfig } from '../validation/cloudinary.config';
+import { Upload } from '../schema/upload.schema';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class UploadService {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {}
+  constructor(@InjectModel(Upload.name) private uploadModel: Model<Upload>) {}
   async handleUpload(file: Express.Multer.File) {
     try {
       cloudinary.config(cloudinaryConfig);
@@ -21,8 +24,15 @@ export class UploadService {
       });
       return result;
     } catch (error) {
-      console.log(111111, error);
+      return { error };
+    }
+  }
 
+  async handleGetFiles() {
+    try {
+      return await this.uploadModel.find();
+    } catch (error) {
+      console.log(111111, error);
       return { error };
     }
   }

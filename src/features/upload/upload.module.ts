@@ -5,14 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { UploadController } from './controller/upload.controller';
 import { SharedModule } from 'src/shared/shared.module';
-
+import { Upload, UploadSchema } from './schema/upload.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([
-      // {
-      //   name: Upload.name,
-      //   schema: Upload,
-      // },
+      {
+        name: Upload.name,
+        schema: UploadSchema,
+      },
     ]),
     SharedModule,
   ],

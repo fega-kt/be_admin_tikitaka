@@ -4,10 +4,11 @@ import { createSchemaForClassWithMethods } from '../../../shared/mongoose/create
 
 @Schema()
 export class Upload extends Document {
-  @Prop({
-    required: true,
-  })
+  @Prop()
   title: string;
+
+  @Prop()
+  name: string;
 }
 
 export const UploadSchema = createSchemaForClassWithMethods(Upload);
