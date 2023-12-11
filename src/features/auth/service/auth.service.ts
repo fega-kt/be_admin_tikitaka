@@ -11,7 +11,7 @@ import { environments } from '../../../environments/environments';
 import { User } from '../../user/schema/user.schema';
 import { UserService } from '../../user/service/user.service';
 import { Token } from '../guard/jwt-auth.guard';
-import { STATUS } from 'src/shared/constants/status';
+import { STATUS } from 'src/constants/status';
 
 export interface TokenResponse {
   access_token: string;

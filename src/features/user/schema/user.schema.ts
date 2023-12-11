@@ -3,8 +3,8 @@ import { Prop, Schema } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { createSchemaForClassWithMethods } from '../../../shared/mongoose/create-schema';
 import { randomString } from '../../../shared/utils/random-string';
-import { STATUS } from 'src/shared/constants/status';
 import { IsEnum } from 'class-validator';
+import { STATUS } from 'src/constants/status';
 
 @Schema()
 export class User extends Document {

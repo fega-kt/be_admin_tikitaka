@@ -12,8 +12,8 @@ import { randomString } from '../../../shared/utils/random-string';
 import { UserGateway } from '../gateway/user.gateway';
 import { Socket } from 'socket.io';
 import { SocketConnectionService } from './socket-connection.service';
-import { STATUS } from 'src/shared/constants/status';
 import { handleConvertDataObject } from 'src/utils';
+import { STATUS } from 'src/constants/status';
 
 @Injectable()
 export class UserService {
@@ -157,7 +157,6 @@ export class UserService {
     status: STATUS = STATUS.ACTIVE,
   ) {
     const userObject = await this.userModel.find({ status });
-    console.log(11111, userObject, status);
     return userObject.map(it =>
       handleConvertDataObject(it, allowedFields, this.blockedFields),
     );
