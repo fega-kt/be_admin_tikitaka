@@ -9,13 +9,17 @@ import { authConfig } from './config/auth.config';
 import { GoogleAuthService } from './service/google-auth.service';
 import { AppleAuthService } from './service/apple-auth.service';
 import { UserModule } from '../user/user.module';
+import { environments } from 'src/environments/environments';
 
 const facebook = authConfig.facebook;
 
 @Module({
   imports: [
     ConfigModule,
-    JwtModule.register(null),
+    JwtModule.register({
+      secret: environments.accessTokenSecret,
+      signOptions: { expiresIn: '1h' },
+    }),
     FacebookAuthModule.forRoot({
       clientId: facebook.appId as number,
       clientSecret: facebook.appSecret,

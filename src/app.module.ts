@@ -20,7 +20,7 @@ import { LoggingMiddleware } from './logging.middleware';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(environments.mongoUri, {
       autoIndex: false,
-      useFindAndModify: true,
+      // useFindAndModify: true,
       autoCreate: true, // tên class schema sẽ là tên table được auto create
     }),
   ],
